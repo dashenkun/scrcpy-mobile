@@ -21,9 +21,9 @@ scrcpy-server:
 	set -x && \
 	export SCRCPY_VERSION=2.3.1 && \
 	export ANDROID_SDK_ROOT=~/Library/Android/sdk && \
-	export JAVA_HOME="$$(J=$$(/usr/libexec/java_home -v 11 2>/dev/null); if [ -z "$$J" ]; then J=$$(ls -d "$$HOME"/hostedtoolcache/Java_Temurin-Hotspot_jdk/11*/*/Contents/Home 2>/dev/null | head -1); fi; if [ -z "$$J" ]; then J="$$JAVA_HOME"; fi; echo "$$J")" && \
+	export JAVA_HOME="$$(J=$$(/usr/libexec/java_home -v 17 2>/dev/null); if [ -z "$$J" ]; then J=$$(ls -d "$$HOME"/hostedtoolcache/Java_Temurin-Hotspot_jdk/17*/*/Contents/Home 2>/dev/null | head -1); fi; if [ -z "$$J" ]; then J="$$JAVA_HOME"; fi; echo "$$J")" && \
 	export PATH="$$JAVA_HOME/bin:$$PATH" && \
-	"$${JAVA_HOME}/bin/java" -version 2>&1 | grep -q 'version "11' || { echo "ERROR: JAVA_HOME does not point to JDK 11 (got $$JAVA_HOME)"; false; } && \
+	"$${JAVA_HOME}/bin/java" -version 2>&1 | grep -q 'version "17' || { echo "ERROR: JAVA_HOME does not point to JDK 17 (got $$JAVA_HOME)"; false; } && \
 	cd server && rm -rf scrcpy-* && \
 	curl -o scrcpy.zip -L https://github.com/Genymobile/scrcpy/archive/refs/tags/v$$SCRCPY_VERSION.zip && \
 	unzip scrcpy.zip && find src -name "*.java" -exec cp -v {} scrcpy-$$SCRCPY_VERSION/server/{} \; && \
