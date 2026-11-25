@@ -21,7 +21,7 @@ scrcpy-server:
 	set -x && \
 	export SCRCPY_VERSION=2.3.1 && \
 	export ANDROID_SDK_ROOT=~/Library/Android/sdk && \
-	export JAVA_HOME="$$(/usr/libexec/java_home --version 1.11)" && \
+	export JAVA_HOME="$$(/usr/libexec/java_home --version 1.11 2>/dev/null || echo "$$JAVA_HOME")" && \
 	export PATH="$$JAVA_HOME/bin:$$PATH" && \
 	cd server && rm -rf scrcpy-* && \
 	curl -o scrcpy.zip -L https://github.com/Genymobile/scrcpy/archive/refs/tags/v$$SCRCPY_VERSION.zip && \
