@@ -20,7 +20,7 @@ jobs:
           submodules: recursive
 
       - name: Install dependencies
-        run: brew install cmake ninja meson ffmpeg
+        run: brew install cmake ninja meson ffmpeg go
 
       - name: Install protoc 3.19.4 for adb-mobile
         run: |
