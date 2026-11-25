@@ -22,12 +22,17 @@ jobs:
       - name: Install dependencies
         run: brew install cmake ninja meson ffmpeg go
 
-      - name: Install protoc 3.19.4 for adb-mobile
+      - name: Build host protobuf 3.19.4 for adb-mobile
         run: |
-          curl -fsSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-osx-x86_64.zip
-          unzip -o /tmp/protoc.zip -d /tmp/protoc-install
-          echo "/tmp/protoc-install/bin" >> "$GITHUB_PATH"
-          /tmp/protoc-install/bin/protoc --version
+          curl -fsSL -o /tmp/pb.tar.gz https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protobuf-all-3.19.4.tar.gz
+          tar xzf /tmp/pb.tar.gz -C /tmp
+          cd /tmp/protobuf-3.19.4
+          ./configure --prefix=/tmp/protobuf-install --disable-shared
+          make -j4
+          make install
+          echo "/tmp/protobuf-install/bin" >> "$GITHUB_PATH"
+          echo "CMAKE_PREFIX_PATH=/tmp/protobuf-install" >> "$GITHUB_ENV"
+          /tmp/protobuf-install/bin/protoc --version
 
       - name: Cache native libraries
         uses: actions/cache@v4
