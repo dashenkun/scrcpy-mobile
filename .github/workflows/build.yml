@@ -24,10 +24,10 @@ jobs:
 
       - name: Install protoc 3.19.4 for adb-mobile
         run: |
-          curl -fsSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-osx-aarch_64.zip || \
           curl -fsSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-osx-x86_64.zip
-          sudo unzip -o /tmp/protoc.zip -d /usr/local
-          protoc --version
+          unzip -o /tmp/protoc.zip -d /tmp/protoc-install
+          echo "/tmp/protoc-install/bin" >> "$GITHUB_PATH"
+          /tmp/protoc-install/bin/protoc --version
 
       - name: Cache native libraries
         uses: actions/cache@v4
