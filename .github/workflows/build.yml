@@ -25,7 +25,7 @@ jobs:
       - name: Install protobuf 3.19.4 for adb-mobile
         run: |
           brew list protobuf &>/dev/null && brew unlink protobuf || true
-          brew install ./external/adb-mobile/porting/protobuf.rb
+          brew install "$GITHUB_WORKSPACE/external/adb-mobile/porting/protobuf.rb"
 
       - name: Cache native libraries
         uses: actions/cache@v4
