@@ -38,8 +38,13 @@ jobs:
             external/adb-mobile/output
           key: ${{ runner.os }}-libs-v1
 
+      - name: Fetch protobuf branches for adb-mobile
+        run: git -C external/adb-mobile/external/protobuf fetch origin '+refs/heads/*:refs/remotes/origin/*'
+
       - name: Build native libraries
         if: steps.cache-libs.outputs.cache-hit != 'true'
+        env:
+          CMAKE_POLICY_VERSION_MINIMUM: 3.5
         run: make libs
 
       - name: Build unsigned IPA
