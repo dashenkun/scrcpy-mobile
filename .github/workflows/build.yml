@@ -38,6 +38,12 @@ jobs:
             external/adb-mobile/output
           key: ${{ runner.os }}-libs-v1
 
+      - name: Set up JDK 11 for scrcpy-server
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
       - name: Fetch protobuf branches for adb-mobile
         run: git -C external/adb-mobile/external/protobuf fetch origin '+refs/heads/*:refs/remotes/origin/*'
 
