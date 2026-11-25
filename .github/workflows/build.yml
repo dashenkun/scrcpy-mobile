@@ -19,6 +19,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch adb-mobile CMake for newer libc++
+        run: |
+          perl -pi -e "s/-include 'adb_porting.h'/-include 'adb_porting.h' -include functional -include memory/ if /CMAKE_CXX_FLAGS/" external/adb-mobile/porting/cmake/CMakeLists.adb.txt
+          perl -pi -e "s/-std=gnu\+\+2a/-std=gnu++2a -include functional -include memory/ if /CMAKE_CXX_FLAGS/" external/adb-mobile/porting/cmake/CMakeLists.vendor.txt
+          grep -n "include functional" external/adb-mobile/porting/cmake/CMakeLists.adb.txt external/adb-mobile/porting/cmake/CMakeLists.vendor.txt
+
       - name: Install dependencies
         run: brew install cmake ninja meson ffmpeg go
 
